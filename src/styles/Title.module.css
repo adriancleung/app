@@ -1,0 +1,42 @@
+.App {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.TitleText {
+  font-size: 10vw;
+  color: white;
+}
+
+.SocialIcons {
+  margin-right: 20px;
+}
+
+.SocialIcons:hover {
+  transform: scale(1.25, 1.25);
+  transition: transform 0.5s;
+  transition-timing-function: ease-in-out;
+  -webkit-transition: transform 0.5s ease-in-out;
+  -moz-transition: transform 0.5s ease-in-out;
+  -ms-transition: transform 0.5s ease-in-out;
+}
+
+.ModalLinksWrapper {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    
+}
+
+.ModalLinks {
+    margin: 0px 50px;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    font-weight: 200;
+}
