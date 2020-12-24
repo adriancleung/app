@@ -1,7 +1,7 @@
 import React from 'react';
 import { Anchor, Box, Text } from 'grommet';
 
-const AboutContent = props => {
+const AboutContent = _props => {
   return (
     <Box overflow={'scroll'}>
       <Text style={{textAlign: 'justify'}} margin={'medium'}>
