@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Box, Button, Layer } from 'grommet';
 import { Close } from 'grommet-icons';
 import AboutContent from './AboutContent';
+import ContactContent from './ContactContent';
 
-const ModalLinks = props => {
+const ModalLinks = _props => {
   const [showAbout, setShowAbout] = useState(false);
   const [showContact, setShowContact] = useState(false);
   return (
@@ -24,8 +25,7 @@ const ModalLinks = props => {
           onClickOutside={() => setShowAbout(false)}>
           <Box
             width={'xlarge'}
-            pad={{bottom: '10vh'}}
-            animation={{ type: 'fadeIn', duration: 1000 }}>
+            pad={{bottom: '10vh'}}>
             <Box height={'xsmall'}>
               <Button
                 onClick={() => setShowAbout(false)}
@@ -44,9 +44,8 @@ const ModalLinks = props => {
           onClickOutside={() => setShowContact(false)}>
           <Box
             width={'xlarge'}
-            pad={{bottom: '10vh'}}
-            animation={{ type: 'fadeIn', duration: 1000 }}>
-            <Box height={'small'}>
+            pad={{bottom: '10vh'}}>
+            <Box height={'xxsmall'}>
               <Button
                 onClick={() => setShowContact(false)}
                 alignSelf={'end'}
@@ -54,6 +53,7 @@ const ModalLinks = props => {
                 <Close size={'medium'} />
               </Button>
             </Box>
+            <ContactContent showContact={(value) => setShowContact(value)}/>
           </Box>
         </Layer>
       )}
