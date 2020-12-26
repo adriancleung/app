@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import Intro from './components/Intro';
 import { Grommet, Box } from 'grommet';
+import Intro from './components/Intro';
+import Projects from './components/Projects';
+import Resume from './components/Resume';
 import './styles/App.module.css';
 
 const theme = {
@@ -48,6 +50,23 @@ const App = _props => {
         height={'calc(var(--vh, 1vh) * 100)'}
         width={'100vw'}>
         <Intro />
+      </Box>
+      <Box
+        direction={'column'}
+        justify={'start'}
+        background={'white'}
+        height={'calc(var(--vh, 1vh) * 100)'}
+        width={'100vw'}>
+        <Projects />
+      </Box>
+      <Box
+        direction={'column'}
+        justify={'start'}
+        pad={'medium'}
+        background={'black'}
+        height={'calc(var(--vh, 1,vh) * 100)'}
+        width={'100vw'}>
+        <Resume />
       </Box>
     </Grommet>
   );
