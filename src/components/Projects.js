@@ -141,7 +141,7 @@ const Projects = _props => {
             title: value.name,
             body: value.description,
             fullTitle: value.full_name,
-            link: value.url,
+            link: value.html_url,
           });
         });
         setRepos(data);
