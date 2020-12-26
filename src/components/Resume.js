@@ -3,6 +3,7 @@ import { Box, Heading } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 
 const Resume = _props => {
+  // eslint-disable-next-line
   const [resumeLoading, setResumeLoading] = useState(true);
 
   return (

@@ -153,7 +153,8 @@ const Projects = _props => {
   };
 
   useEffect(() => {
-      fetchRepos();
+    fetchRepos();
+    // eslint-disable-next-line
   }, []);
 
   return (
