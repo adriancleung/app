@@ -13,13 +13,12 @@ import { ScaleLoader } from 'react-spinners';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import axios from 'axios';
 
-const CardItem = ({ loading, title, body, fullTitle, link }) => {
+const CardItem = ({ title, body, fullTitle, link }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
     <Card
       style={{
-        display: loading ? 'none' : 'flex',
         flexGrow: 0,
         flexShrink: 0,
         flexBasis: 'auto',
@@ -114,7 +113,6 @@ const Repos = ({ projectsLoading, data }) => {
         return (
           <CardItem
             key={index}
-            loading={value.loading}
             title={value.title}
             body={value.body}
             fullTitle={value.fullTitle}
@@ -155,8 +153,8 @@ const Projects = _props => {
   };
 
   useEffect(() => {
-    fetchRepos();
-  });
+      fetchRepos();
+  }, []);
 
   return (
     <Box height={'100%'}>
@@ -168,7 +166,7 @@ const Projects = _props => {
           width={10}
           radius={20}
         />
-        <Repos loading={projectsLoading} data={repos} />
+        {!projectsLoading && <Repos loading={projectsLoading} data={repos} />}
       </Box>
     </Box>
   );
