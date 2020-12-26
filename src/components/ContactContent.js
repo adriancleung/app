@@ -9,6 +9,31 @@ const ContactContent = props => {
     message: '',
   });
 
+  const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const sendMessage = () => {
+    axios
+      .post('https://api.adrianleung.dev/mail', {
+        firstName: String(contactValue.name).split(' ')[0],
+        lastName:
+          String(contactValue.name).split(' ')[1] === undefined
+            ? ''
+            : String(contactValue.name).split(' ')[1],
+        email: contactValue.email,
+        message: contactValue.message,
+      })
+      .then(res => {
+        if (res.status === 200) {
+          alert('Thank you for your message. I will get back to you shortly!');
+          setContactValue({ name: '', email: '', message: '' });
+          props.showContact(false);
+        } else {
+          alert('Message was unable to send. Please try again');
+        }
+      })
+      .catch(_err => alert('Message was unable to send. Please try again'));
+  };
+
   return (
     <Box overflow={'scroll'}>
       <Text margin={'medium'}>
@@ -32,32 +57,7 @@ const ContactContent = props => {
       <Form
         value={contactValue}
         onChange={value => setContactValue(value)}
-        onSubmit={() => {
-          axios
-            .post('https://api.adrianleung.dev/mail', {
-              firstName: String(contactValue.name).split(' ')[0],
-              lastName:
-                String(contactValue.name).split(' ')[1] === undefined
-                  ? ''
-                  : String(contactValue.name).split(' ')[1],
-              email: contactValue.email,
-              message: contactValue.message,
-            })
-            .then(res => {
-              if (res.status === 200) {
-                alert(
-                  'Thank you for your message. I will get back to you shortly!'
-                );
-                setContactValue({ name: '', email: '', message: '' });
-                props.showContact(false);
-              } else {
-                alert('Message was unable to send. Please try again');
-              }
-            })
-            .catch(_err =>
-              alert('Message was unable to send. Please try again')
-            );
-        }}
+        onSubmit={() => sendMessage()}
         onReset={() => setContactValue({ name: '', email: '', message: '' })}>
         <FormField
           validate={(value, _allValues) => {
@@ -76,8 +76,8 @@ const ContactContent = props => {
             if (value === '') {
               return { message: 'Required', status: 'error' };
             }
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (re.test(String(value).toLowerCase())) {
+
+            if (emailRegExp.test(String(value).toLowerCase())) {
               return { message: '', status: 'info' };
             } else {
               return { message: 'Invalid', status: 'error' };
