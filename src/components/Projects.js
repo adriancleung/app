@@ -86,6 +86,26 @@ const Repos = ({ projectsLoading, data }) => {
     document.addEventListener('mousemove', handleMouseMove);
   };
 
+  const handleScroll = e => {
+    e.preventDefault();
+    if (
+      boxRef.current.scrollLeft >=
+        boxRef.current.scrollWidth - boxRef.current.clientWidth ||
+      boxRef.current.scrollLeft === 0
+    ) {
+      window.scrollTo({
+        top: document.documentElement.scrollTop + e.deltaY,
+        behavior: 'smooth',
+      });
+    }
+
+    boxRef.current.scrollTo({
+      top: 0,
+      left: boxRef.current.scrollLeft + e.deltaY,
+      behaviour: 'smooth',
+    });
+  };
+
   return (
     <Box
       ref={boxRef}
@@ -95,16 +115,7 @@ const Repos = ({ projectsLoading, data }) => {
       gap={'medium'}
       id={'box'}
       pad={'medium'}
-      onWheel={e => {
-        e.preventDefault();
-        var container = document.getElementById('box');
-        var containerScrollPosition = document.getElementById('box').scrollLeft;
-        container.scrollTo({
-          top: 0,
-          left: containerScrollPosition + e.deltaY,
-          behaviour: 'smooth',
-        });
-      }}
+      onWheel={e => handleScroll(e)}
       onMouseDown={e => handleMouseDrag(e)}
       style={{ cursor: 'grab', userSelect: 'none' }}
       overflow={{ horizontal: 'scroll', vertical: 'hidden' }}
