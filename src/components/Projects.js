@@ -11,7 +11,7 @@ import {
 } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import axios from 'axios';
+import { getRepos } from '../services/github';
 
 const CardItem = ({ title, body, fullTitle, link }) => {
   const [hovered, setHovered] = useState(false);
@@ -139,11 +139,8 @@ const Projects = _props => {
   const [projectsLoading, setProjectsLoading] = useState(true);
   const [repos, setRepos] = useState([]);
 
-  const fetchRepos = () => {
-    axios
-      .get('https://api.github.com/users/adriancleung/repos', {
-        headers: { Accept: 'application/vnd.github.v3+json' },
-      })
+  const loadRepos = () => {
+    getRepos()
       .then(res => {
         const data = [];
         res.data.forEach(value => {
@@ -164,7 +161,7 @@ const Projects = _props => {
   };
 
   useEffect(() => {
-    fetchRepos();
+    loadRepos();
     // eslint-disable-next-line
   }, []);
 

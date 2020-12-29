@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Box, Form, FormField, Text, Button, TextArea, Anchor } from 'grommet';
+import { sendMessage } from '../services/api';
+import { emailRegExp, SUCCESS_CODE } from '../constants';
 
 const ContactContent = props => {
   const [contactValue, setContactValue] = useState({
@@ -9,21 +10,17 @@ const ContactContent = props => {
     message: '',
   });
 
-  const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  const sendMessage = () => {
-    axios
-      .post('https://api.adrianleung.dev/mail', {
-        firstName: String(contactValue.name).split(' ')[0],
-        lastName:
-          String(contactValue.name).split(' ')[1] === undefined
-            ? ''
-            : String(contactValue.name).split(' ')[1],
-        email: contactValue.email,
-        message: contactValue.message,
-      })
+  const handleSubmit = () => {
+    sendMessage(
+      String(contactValue.name).split(' ')[0],
+      String(contactValue.name).split(' ')[1] === undefined
+        ? ''
+        : String(contactValue.name).split(' ')[1],
+      contactValue.email,
+      contactValue.message
+    )
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS_CODE) {
           alert('Thank you for your message. I will get back to you shortly!');
           setContactValue({ name: '', email: '', message: '' });
           props.showContact(false);
@@ -57,7 +54,7 @@ const ContactContent = props => {
       <Form
         value={contactValue}
         onChange={value => setContactValue(value)}
-        onSubmit={() => sendMessage()}
+        onSubmit={() => handleSubmit()}
         onReset={() => setContactValue({ name: '', email: '', message: '' })}>
         <FormField
           validate={(value, _allValues) => {
