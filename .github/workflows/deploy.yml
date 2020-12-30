@@ -24,6 +24,9 @@ jobs:
 
       - name: Create production build
         run: npm run build
+      
+      - name: Create CNAME
+        run: echo "adrianleung.dev" > build/CNAME
 
       - name: Deploy production build
         uses: JamesIves/github-pages-deploy-action@3.7.1
@@ -32,3 +35,13 @@ jobs:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: build # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
+      
+      - name: Deploy to GitHub Pages
+        uses: cpina/github-action-push-to-another-repository@master
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'build'
+          destination-github-username: 'adriancleung'
+          destination-repository-name: 'adriancleung.github.io'
+          user-email: adrian.leung@ualberta.ca
