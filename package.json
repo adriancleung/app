@@ -1,7 +1,7 @@
 {
-  "name": "app",
-  "version": "1.0.0",
-  "homepage": "http://adriancleung.github.io/app",
+  "name": "adriancleung-app",
+  "version": "1.1.0",
+  "homepage": "http://adriancleung.github.io",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
