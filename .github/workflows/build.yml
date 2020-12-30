@@ -15,5 +15,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Load env file
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+        run: echo $ENV_FILE > .env
+
       - name: Create production build
         run: npm run build

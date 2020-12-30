@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Box, Heading } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import axios from 'axios';
 import { SUCCESS_CODE } from '../constants';
+import { getResume } from '../services/api';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const Resume = _props => {
   const [resumeLoading, setResumeLoading] = useState(true);
   const [resume, setResume] = useState();
 
-  const fetchResume = () => {
-    axios
-      .get('https://api.adrianleung.dev/resume')
+  const loadResume = () => {
+    getResume()
       .then(res => {
         if (res.status === SUCCESS_CODE) {
           setResume(res.data);
@@ -24,7 +23,7 @@ const Resume = _props => {
   };
 
   useEffect(() => {
-    fetchResume();
+    loadResume();
   }, []);
 
   return (
