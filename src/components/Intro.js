@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Box, Heading } from 'grommet';
-import SocialLinks from './SocialLinks';
-import ModalLinks from './ModalLinks';
+
+const SocialLinks = lazy(() => import('./SocialLinks'));
+const ModalLinks = lazy(() => import('./ModalLinks'));
 
 const Intro = _props => {
   return (
-    <Box
-      margin={'large'}
-      gap={'medium'}
-      animation={{ type: 'fadeIn', duration: 2000 }}>
-      <Heading size={'xlarge'} margin={{ bottom: 'xsmall' }}>
-        Adrian Leung
-      </Heading>
-      <SocialLinks />
-      <ModalLinks />
-    </Box>
+    <Suspense fallback={<div>Page is loading...</div>}>
+      <Box
+        margin={'large'}
+        gap={'medium'}
+        animation={{ type: 'fadeIn', duration: 2000 }}>
+        <Heading size={'xlarge'} margin={{ bottom: 'xsmall' }}>
+          Adrian Leung
+        </Heading>
+        <SocialLinks />
+        <ModalLinks />
+      </Box>
+    </Suspense>
   );
 };
 
