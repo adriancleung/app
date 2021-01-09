@@ -26,6 +26,14 @@
   ],
   "start_url": ".",
   "display": "standalone",
+  "shortcuts": [
+    {
+      "name": "Admin Page",
+      "short_name": "Admin",
+      "descrption": "View the admin page",
+      "url": "/admin"
+    }
+  ],
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
