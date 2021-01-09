@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Text, Button, Form, FormField } from 'grommet';
 import { UserAdmin } from 'grommet-icons';
-import { login, verifyToken, getCurrentUser } from '../services/auth';
+import { login, checkAuth } from '../services/auth';
 import { Redirect, useHistory } from 'react-router-dom';
 import { VALID_TOKEN } from '../constants';
 
@@ -15,7 +15,7 @@ const Login = _props => {
     login(loginInfo.email, loginInfo.password)
       .then(result => {
         if (result.accessToken !== null) {
-          history.push('/admin'); 
+          history.push('/admin');
         } else {
           setHideIncorrect(false);
         }
@@ -26,10 +26,8 @@ const Login = _props => {
   };
 
   useEffect(() => {
-    if (getCurrentUser()) {
-      verifyToken().then(value =>
-        value === VALID_TOKEN ? setRedirect(true) : null
-      );
+    if (checkAuth() === VALID_TOKEN) {
+      setRedirect(true);
     }
   }, []);
 

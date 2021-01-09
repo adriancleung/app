@@ -33,4 +33,14 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem('user'));
 };
 
-export { login, verifyToken, logout, getCurrentUser };
+const checkAuth = () => {
+  if (getCurrentUser()) {
+    verifyToken().then(value => {
+      return value;
+    });
+  } else {
+    return INVALID_TOKEN;
+  }
+};
+
+export { login, verifyToken, logout, getCurrentUser, checkAuth };

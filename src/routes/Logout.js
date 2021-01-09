@@ -5,11 +5,9 @@ import { logout } from '../services/auth';
 const Logout = _props => {
   useEffect(() => {
     logout();
-  }, [])
+  }, []);
 
-  return (
-    <Redirect to={'/login'} />
-  );
+  return <Redirect to={'/login'} />;
 };
 
 export default Logout;

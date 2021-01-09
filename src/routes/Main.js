@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Box } from 'grommet';
-import Intro from '../components/Intro';
-import Projects from '../components/Projects';
-import Resume from '../components/Resume';
+import Intro from '../components/Main/Intro';
+import Projects from '../components/Main/Projects';
+import Resume from '../components/Main/Resume';
 
 const Main = _props => {
   const handleWindowSizeChange = () => {
