@@ -3,6 +3,7 @@ import { Grommet } from 'grommet';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './styles/App.module.css';
 import { APP_THEME } from './styles/Theme';
+import Loading from './components/common/Loading';
 
 const Main = lazy(() => import('./routes/Main'));
 const Admin = lazy(() => import('./routes/Admin'));
@@ -13,7 +14,7 @@ const App = _props => {
   return (
     <Grommet theme={APP_THEME}>
       <Router>
-        <Suspense fallback={<div>Page is loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Switch>
             <Route path={'/admin'}>
               <Admin />

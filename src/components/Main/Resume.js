@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, Heading } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { SUCCESS_CODE } from '../constants';
-import { getResume } from '../services/api';
+import { SUCCESS_CODE } from '../../constants';
+import { getResume } from '../../services/api';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -13,13 +13,9 @@ const Resume = _props => {
 
   const loadResume = () => {
     getResume()
-      .then(res => {
-        if (res.status === SUCCESS_CODE) {
-          setResume(res.data);
-          setResumeLoading(false);
-        }
-      })
-      .catch(err => console.error(err));
+      .then(res => (res.status === SUCCESS_CODE ? setResume(res.data) : null))
+      .catch(err => console.error(err))
+      .finally(() => setResumeLoading(false));
   };
 
   useEffect(() => {
@@ -38,7 +34,9 @@ const Resume = _props => {
           color={'white'}
         />
         {!resumeLoading && (
-          <Document file={`data:application/pdf;base64,${resume}`}>
+          <Document
+            file={resume ? `data:application/pdf;base64,${resume}` : null}
+            noData={'Failed to load PDF file.'}>
             <Page
               scale={
                 window.screen.width < 600

@@ -3,7 +3,7 @@ import { Box, Button } from 'grommet';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import styles from '../styles/SocialLinks.module.css';
+import styles from '../../styles/SocialLinks.module.css';
 
 const SocialLinks = _props => {
   return (

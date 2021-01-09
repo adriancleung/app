@@ -1,9 +1,8 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect } from 'react';
 import { Box } from 'grommet';
-
-const Intro = lazy(() => import('../components/Intro'));
-const Projects = lazy(() => import('../components/Projects'));
-const Resume = lazy(() => import('../components/Resume'));
+import Intro from '../components/Main/Intro';
+import Projects from '../components/Main/Projects';
+import Resume from '../components/Main/Resume';
 
 const Main = _props => {
   const handleWindowSizeChange = () => {
@@ -19,34 +18,32 @@ const Main = _props => {
 
   return (
     <>
-      <Suspense fallback={<div>Page is loading...</div>}>
-        <Box
-          direction={'column'}
-          justify={'center'}
-          pad={'medium'}
-          background={'black'}
-          height={'calc(var(--vh, 1vh) * 100)'}
-          width={'100vw'}>
-          <Intro />
-        </Box>
-        <Box
-          direction={'column'}
-          justify={'start'}
-          background={'white'}
-          height={'calc(var(--vh, 1vh) * 100)'}
-          width={'100vw'}>
-          <Projects />
-        </Box>
-        <Box
-          direction={'column'}
-          justify={'start'}
-          pad={'medium'}
-          background={'black'}
-          height={'calc(var(--vh, 1,vh) * 100)'}
-          width={'100vw'}>
-          <Resume />
-        </Box>
-      </Suspense>
+      <Box
+        direction={'column'}
+        justify={'center'}
+        pad={'medium'}
+        background={'black'}
+        height={'calc(var(--vh, 1vh) * 100)'}
+        width={'100vw'}>
+        <Intro />
+      </Box>
+      <Box
+        direction={'column'}
+        justify={'start'}
+        background={'white'}
+        height={'calc(var(--vh, 1vh) * 100)'}
+        width={'100vw'}>
+        <Projects />
+      </Box>
+      <Box
+        direction={'column'}
+        justify={'start'}
+        pad={'medium'}
+        background={'black'}
+        height={'calc(var(--vh, 1,vh) * 100)'}
+        width={'100vw'}>
+        <Resume />
+      </Box>
     </>
   );
 };

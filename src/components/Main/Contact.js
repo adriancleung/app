@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Form, FormField, Text, Button, TextArea, Anchor } from 'grommet';
-import { sendMessage } from '../services/api';
-import { emailRegExp, SUCCESS_CODE } from '../constants';
+import { sendMessage } from '../../services/api';
+import { emailRegExp, SUCCESS_CODE } from '../../constants';
 
-const ContactContent = props => {
+const Contact = props => {
   const [contactValue, setContactValue] = useState({
     name: '',
     email: '',
@@ -115,4 +115,4 @@ const ContactContent = props => {
   );
 };
 
-export default ContactContent;
+export default Contact;

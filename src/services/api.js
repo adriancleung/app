@@ -33,3 +33,12 @@ export const getAllMail = async () => {
     return err;
   }
 };
+
+export const getAboutContent = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/about`);
+    return res;
+  } catch (err) {
+    return err;
+  }
+};

@@ -11,9 +11,9 @@ import {
 } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { getRepos } from '../services/github';
+import { getRepos } from '../../services/github';
 
-const CardItem = ({ title, body, fullTitle, link }) => {
+const RepoCard = ({ title, body, fullTitle, link }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -122,7 +122,7 @@ const Repos = ({ projectsLoading, data }) => {
       wrap={false}>
       {data.map((value, index) => {
         return (
-          <CardItem
+          <RepoCard
             key={index}
             title={value.title}
             body={value.body}
