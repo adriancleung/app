@@ -13,7 +13,7 @@ import { ScaleLoader } from 'react-spinners';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import { getRepos } from '../../services/github';
 
-const RepoCard = ({ title, body, fullTitle, link }) => {
+const RepoCard = ({ title, body, fullTitle, link, language }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -34,10 +34,13 @@ const RepoCard = ({ title, body, fullTitle, link }) => {
         pad={'medium'}
         style={{ fontWeight: 'bolder', fontSize: '1.5rem' }}>
         {title}
+        <Text size={'small'} weight={'normal'}>
+          {language}
+        </Text>
       </CardHeader>
       <CardBody pad={'medium'}>{body}</CardBody>
       <CardFooter pad={'small'}>
-        <Button href={link} hoverIndicator>
+        <Button href={link}>
           <GitHubIcon style={{ padding: '10px' }} />
         </Button>
         <Text>{fullTitle}</Text>
@@ -128,6 +131,7 @@ const Repos = ({ projectsLoading, data }) => {
             body={value.body}
             fullTitle={value.fullTitle}
             link={value.link}
+            language={value.language}
           />
         );
       })}
@@ -150,6 +154,7 @@ const Projects = _props => {
             body: value.description,
             fullTitle: value.full_name,
             link: value.html_url,
+            language: value.language,
           });
         });
         setRepos(data);
