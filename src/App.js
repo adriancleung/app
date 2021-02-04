@@ -9,6 +9,7 @@ const Main = lazy(() => import('./routes/Main'));
 const Admin = lazy(() => import('./routes/Admin'));
 const Login = lazy(() => import('./routes/Login'));
 const Logout = lazy(() => import('./routes/Logout'));
+const Pushie = lazy(() => import('./routes/Pushie'));
 
 const App = _props => {
   return (
@@ -25,7 +26,10 @@ const App = _props => {
             <Route path={'/logout'}>
               <Logout />
             </Route>
-            <Route path={'/'}>
+            <Route path={'/pushie'}>
+              <Pushie />
+            </Route>
+            <Route exact path={'/'}>
               <Main />
             </Route>
           </Switch>
