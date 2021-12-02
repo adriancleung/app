@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Heading } from 'grommet';
+import { Box, Button, Heading } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { SUCCESS_CODE } from '../../constants';
@@ -34,24 +34,42 @@ const Resume = _props => {
           color={'white'}
         />
         {!resumeLoading && (
-          <Document
-            file={resume ? `data:application/pdf;base64,${resume}` : null}
-            noData={'Failed to load PDF file.'}>
-            <Page
-              scale={
-                window.screen.width < 600
-                  ? 0.5
-                  : window.screen.width < 768
-                  ? 0.6
-                  : window.screen.width < 992
-                  ? 0.7
-                  : window.screen.width < 1200
-                  ? 0.8
-                  : 0.9
-              }
-              pageNumber={1}
+          <>
+            <Document
+              file={resume ? `data:application/pdf;base64,${resume}` : null}
+              noData={'Failed to load PDF file.'}>
+              <Page
+                scale={
+                  window.screen.width < 600
+                    ? 0.5
+                    : window.screen.width < 768
+                    ? 0.6
+                    : window.screen.width < 992
+                    ? 0.7
+                    : window.screen.width < 1200
+                    ? 0.8
+                    : 0.9
+                }
+                pageNumber={1}
+              />
+            </Document>
+            <Button
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 5,
+                color: 'black',
+                padding: 10,
+                paddingLeft: 20,
+                paddingRight: 20,
+                margin: 10,
+              }}
+              hoverIndicator={true}
+              label={'Download Resume'}
+              size={'small'}
+              download={'Resume_AdrianLeung.pdf'}
+              href={resume ? `data:application/pdf;base64,${resume}` : null}
             />
-          </Document>
+          </>
         )}
       </Box>
     </Box>
