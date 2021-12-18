@@ -25,6 +25,21 @@ export const getResume = async () => {
   }
 };
 
+export const submitResume = async (name, file) => {
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('file', file);
+
+  try {
+    const res = await axios.post(`${API_URL}/resume`, formData, {
+      headers: authHeader(),
+    });
+    return res;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const getAllMail = async () => {
   try {
     const res = await axios.get(`${API_URL}/mail`, { headers: authHeader() });
@@ -37,6 +52,19 @@ export const getAllMail = async () => {
 export const getAboutContent = async () => {
   try {
     const res = await axios.get(`${API_URL}/about`);
+    return res;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const updateAboutContent = async content => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/about`,
+      { content: content },
+      { headers: authHeader() }
+    );
     return res;
   } catch (err) {
     return err;
