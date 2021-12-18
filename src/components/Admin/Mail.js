@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableHeader, TableBody, TableRow, TableCell } from 'grommet';
 import { useMediaQuery } from 'react-responsive';
+import { getAllMail } from '../../services/api';
 
 const MailMessage = ({ name, email, message }) => {
   const isMobile = useMediaQuery({ maxWidth: 1224 });
@@ -30,44 +31,70 @@ const MailMessage = ({ name, email, message }) => {
   );
 };
 
-const Mail = ({ data }) => {
+const Mail = () => {
   const isMobile = useMediaQuery({ maxWidth: 1224 });
+  const [mail, setMail] = useState([]);
+  const [mailLoading, setMailLoading] = useState(true);
+
+  const loadMail = () => {
+    getAllMail()
+      .then(res => {
+        const mails = [];
+        res.data.mail.forEach(mail => {
+          mails.push({
+            name: `${mail.firstName} ${mail.lastName}`,
+            email: mail.email,
+            message: mail.message,
+          });
+        });
+        setMail(mails);
+      })
+      .catch(err => console.error(err))
+      .finally(() => setMailLoading(false));
+  };
+
+  useEffect(() => {
+    loadMail();
+  }, []);
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          {isMobile ? (
-            <TableCell scope={'col'} border={'bottom'}>
-              <strong>Messages</strong>
-            </TableCell>
-          ) : (
-            <>
+    !mailLoading && (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {isMobile ? (
               <TableCell scope={'col'} border={'bottom'}>
-                <strong>Name</strong>
+                <strong>Messages</strong>
               </TableCell>
-              <TableCell scope={'col'} border={'bottom'}>
-                <strong>Email</strong>
-              </TableCell>
-              <TableCell scope={'col'} border={'bottom'}>
-                <strong>Message</strong>
-              </TableCell>
-            </>
-          )}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data.map((value, index) => {
-          return (
-            <MailMessage
-              key={index}
-              name={value.name}
-              email={value.email}
-              message={value.message}
-            />
-          );
-        })}
-      </TableBody>
-    </Table>
+            ) : (
+              <>
+                <TableCell scope={'col'} border={'bottom'}>
+                  <strong>Name</strong>
+                </TableCell>
+                <TableCell scope={'col'} border={'bottom'}>
+                  <strong>Email</strong>
+                </TableCell>
+                <TableCell scope={'col'} border={'bottom'}>
+                  <strong>Message</strong>
+                </TableCell>
+              </>
+            )}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {mail.map((value, index) => {
+            return (
+              <MailMessage
+                key={index}
+                name={value.name}
+                email={value.email}
+                message={value.message}
+              />
+            );
+          })}
+        </TableBody>
+      </Table>
+    )
   );
 };
 

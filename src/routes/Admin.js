@@ -6,37 +6,33 @@ import Mail from '../components/Admin/Mail';
 import AdminSidebar from '../components/Admin/AdminSidebar';
 import AdminAccordian from '../components/Admin/AdminAccordian';
 import { checkAuth } from '../services/auth';
-import { getAllMail } from '../services/api';
 import { INVALID_TOKEN } from '../constants';
+import Resume from '../components/Admin/Resume';
+import About from '../components/Admin/About';
 
 const Admin = _props => {
   const [redirect, setRedirect] = useState(false);
-  const [mail, setMail] = useState([]);
-  const [mailLoading, setMailLoading] = useState(true);
   const isMobile = useMediaQuery({ maxWidth: 1224 });
+  const [option, setOption] = useState('About');
 
-  const loadMail = () => {
-    getAllMail()
-      .then(res => {
-        const mails = [];
-        res.data.mail.forEach(mail => {
-          mails.push({
-            name: `${mail.firstName} ${mail.lastName}`,
-            email: mail.email,
-            message: mail.message,
-          });
-        });
-        setMail(mails);
-      })
-      .catch(err => console.error(err))
-      .finally(() => setMailLoading(false));
+  const Content = () => {
+    switch (option) {
+      case 'About':
+        return <About />;
+      case 'Mail':
+        return <Mail />;
+      case 'Resume':
+        return <Resume />;
+      case 'Settings':
+        return <></>;
+      default:
+        return <></>;
+    }
   };
 
   useEffect(() => {
     if (checkAuth() === INVALID_TOKEN) {
       setRedirect(true);
-    } else {
-      loadMail();
     }
   }, []);
 
@@ -48,15 +44,19 @@ const Admin = _props => {
       height={'100vh'}
       gap={isMobile ? 'medium' : 'small'}
       direction={isMobile ? 'column' : 'row'}>
-      {isMobile ? <AdminAccordian /> : <AdminSidebar />}
+      {isMobile ? (
+        <AdminAccordian option={value => setOption(value)} />
+      ) : (
+        <AdminSidebar option={value => setOption(value)} />
+      )}
 
       <Box
         width={'100%'}
         height={'100%'}
         pad={'small'}
         margin={{ top: isMobile ? '50px' : null }}>
-        <Heading margin={'small'}>Mail</Heading>
-        {!mailLoading && <Mail data={mail} />}
+        <Heading margin={'small'}>{option}</Heading>
+        <Content />
       </Box>
     </Box>
   );
