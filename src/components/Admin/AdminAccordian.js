@@ -1,14 +1,21 @@
 import React from 'react';
 import { Accordion, AccordionPanel, Avatar, Box, Text, Button } from 'grommet';
-import { User, MailOption, SettingsOption, Logout } from 'grommet-icons';
+import {
+  Article,
+  User,
+  MailOption,
+  SettingsOption,
+  Logout,
+  Notes,
+} from 'grommet-icons';
 
-const AdminAccordian = _props => {
+const AdminAccordian = ({ option }) => {
   return (
     <Box fill={'horizontal'}>
       <Accordion
         animate={true}
         round={{ corner: 'bottom', size: 'medium' }}
-        style={{ zIndex: 0, position: 'fixed', width: '100%' }}>
+        style={{ zIndex: 999, position: 'fixed', width: '100%' }}>
         <AccordionPanel label={'Admin'} background={'#0984e3'}>
           <Box
             pad={{ horizontal: 'medium' }}
@@ -33,8 +40,39 @@ const AdminAccordian = _props => {
             <Button
               plain
               alignSelf={'start'}
+              icon={<Article />}
+              label={'About'}
+              onClick={e => {
+                option('About');
+              }}
+            />
+          </Box>
+          <Box
+            background={'#0984e3'}
+            height={'xxsmall'}
+            pad={{ horizontal: 'medium' }}>
+            <Button
+              plain
+              alignSelf={'start'}
               icon={<MailOption />}
               label={'Mail'}
+              onClick={e => {
+                option('Mail');
+              }}
+            />
+          </Box>
+          <Box
+            background={'#0984e3'}
+            height={'xxsmall'}
+            pad={{ horizontal: 'medium' }}>
+            <Button
+              plain
+              alignSelf={'start'}
+              icon={<Notes />}
+              label={'Resume'}
+              onClick={e => {
+                option('Resume');
+              }}
             />
           </Box>
           <Box
@@ -46,6 +84,9 @@ const AdminAccordian = _props => {
               alignSelf={'start'}
               icon={<SettingsOption />}
               label={'Settings'}
+              onClick={e => {
+                option('Settings');
+              }}
             />
           </Box>
           <Box

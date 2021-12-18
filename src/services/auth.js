@@ -35,9 +35,13 @@ const getCurrentUser = () => {
 
 const checkAuth = () => {
   if (getCurrentUser()) {
-    verifyToken().then(value => {
-      return value;
-    });
+    verifyToken()
+      .then(value => {
+        return value;
+      })
+      .catch(err => {
+        return INVALID_TOKEN;
+      });
   } else {
     return INVALID_TOKEN;
   }

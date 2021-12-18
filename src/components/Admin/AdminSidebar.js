@@ -1,8 +1,8 @@
 import React from 'react';
 import { Sidebar, Box, Avatar, Text, Button, Nav } from 'grommet';
-import { User, Logout, MailOption, SettingsOption } from 'grommet-icons';
+import { User, Logout, MailOption, SettingsOption, Notes, Article } from 'grommet-icons';
 
-const AdminSidebar = _props => {
+const AdminSidebar = ({ option }) => {
   return (
     <Sidebar
       responsive={false}
@@ -42,8 +42,33 @@ const AdminSidebar = _props => {
             <Button
               plain
               alignSelf={'start'}
+              icon={<Article />}
+              label={'About'}
+              onClick={e => {
+                option('About');
+              }}
+            />
+          </Box>
+          <Box>
+            <Button
+              plain
+              alignSelf={'start'}
               icon={<MailOption />}
               label={'Mail'}
+              onClick={e => {
+                option('Mail');
+              }}
+            />
+          </Box>
+          <Box>
+            <Button
+              plain
+              alignSelf={'start'}
+              icon={<Notes />}
+              label={'Resume'}
+              onClick={e => {
+                option('Resume');
+              }}
             />
           </Box>
           <Box>
@@ -52,6 +77,9 @@ const AdminSidebar = _props => {
               alignSelf={'start'}
               icon={<SettingsOption />}
               label={'Settings'}
+              onClick={e => {
+                option('Settings');
+              }}
             />
           </Box>
         </Nav>
