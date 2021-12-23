@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Grommet } from 'grommet';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.module.css';
 import { APP_THEME } from './styles/Theme';
 import Loading from './components/common/Loading';
@@ -16,23 +16,13 @@ const App = _props => {
     <Grommet theme={APP_THEME}>
       <Router>
         <Suspense fallback={<Loading />}>
-          <Switch>
-            <Route path={'/admin'}>
-              <Admin />
-            </Route>
-            <Route path={'/login'}>
-              <Login />
-            </Route>
-            <Route path={'/logout'}>
-              <Logout />
-            </Route>
-            <Route path={'/pushie'}>
-              <Pushie />
-            </Route>
-            <Route exact path={'/'}>
-              <Main />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path={'/admin'} element={<Admin />} />
+            <Route path={'/login'} element={<Login />} />
+            <Route path={'/logout'} element={<Logout />} />
+            <Route path={'/pushie/*'} element={<Pushie />} />
+            <Route exact path={'/'} element={<Main />} />
+          </Routes>
         </Suspense>
       </Router>
     </Grommet>
