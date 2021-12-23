@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Heading } from 'grommet';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import Mail from '../components/Admin/Mail';
 import AdminSidebar from '../components/Admin/AdminSidebar';
@@ -37,7 +37,7 @@ const Admin = _props => {
   }, []);
 
   return redirect ? (
-    <Redirect to={'/login'} />
+    <Navigate to={'/login'} />
   ) : (
     <Box
       width={'100vw'}
