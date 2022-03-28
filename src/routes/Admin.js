@@ -31,9 +31,12 @@ const Admin = _props => {
   };
 
   useEffect(() => {
-    if (checkAuth() === INVALID_TOKEN) {
-      setRedirect(true);
-    }
+    const validate = async () => {
+      if ((await checkAuth()) === INVALID_TOKEN) {
+        setRedirect(true);
+      }
+    };
+    validate();
   }, []);
 
   return redirect ? (

@@ -33,15 +33,14 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem('user'));
 };
 
-const checkAuth = () => {
+const checkAuth = async () => {
   if (getCurrentUser()) {
-    verifyToken()
-      .then(value => {
-        return value;
-      })
-      .catch(err => {
-        return INVALID_TOKEN;
-      });
+    try {
+      const value = await verifyToken();
+      return value;
+    } catch (error) {
+      return INVALID_TOKEN;
+    }
   } else {
     return INVALID_TOKEN;
   }
