@@ -27,7 +27,7 @@ const Login = _props => {
 
   useEffect(() => {
     const validate = async () => {
-      if (checkAuth() === VALID_TOKEN) {
+      if (await checkAuth() === VALID_TOKEN) {
         setRedirect(true);
       }
     };

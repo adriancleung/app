@@ -4,7 +4,7 @@ const authHeader = () => {
   const user = getCurrentUser();
 
   if (user && user.accessToken) {
-    return { 'x-access-token': user.accessToken };
+    return { authorization: `Bearer ${user.accessToken}` };
   } else {
     return {};
   }
