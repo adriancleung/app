@@ -42,7 +42,7 @@ export const submitResume = async (name, file) => {
 
 export const getAllMail = async () => {
   try {
-    const res = await axios.get(`${API_URL}/mail`, { headers: authHeader() });
+    const res = await axios.get(`${API_URL}/mails`, { headers: authHeader() });
     return res;
   } catch (err) {
     return err;

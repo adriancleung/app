@@ -40,7 +40,7 @@ const Mail = () => {
     getAllMail()
       .then(res => {
         const mails = [];
-        res.data.mail.forEach(mail => {
+        res.data.mails.forEach(mail => {
           mails.push({
             name: `${mail.firstName} ${mail.lastName}`,
             email: mail.email,

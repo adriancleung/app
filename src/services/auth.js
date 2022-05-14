@@ -3,7 +3,7 @@ import { API_URL, INVALID_TOKEN, VALID_TOKEN } from '../constants';
 import authHeader from '../utils/authHeader';
 
 const login = async (email, password) => {
-  const res = await axios.post(`${API_URL}/auth/login`, { email, password });
+  const res = await axios.post(`${API_URL}/login`, { email, password });
   if (res.data.accessToken) {
     localStorage.setItem('user', JSON.stringify(res.data));
   }
@@ -12,10 +12,10 @@ const login = async (email, password) => {
 
 const verifyToken = async () => {
   try {
-    const res = await axios.post(`${API_URL}/auth/verify`, null, {
+    const res = await axios.post(`${API_URL}/verify`, null, {
       headers: authHeader(),
     });
-    if (res.data.userId === getCurrentUser().id) {
+    if (res.data.userId === getCurrentUser().userId) {
       return VALID_TOKEN;
     } else {
       return INVALID_TOKEN;
