@@ -3,8 +3,11 @@ import { Box } from 'grommet';
 import Intro from '../components/Main/Intro';
 import Projects from '../components/Main/Projects';
 import Resume from '../components/Main/Resume';
+import Sponsor from '../components/Main/Sponsor';
 
-const Main = _props => {
+type Props = {};
+
+const Main: React.FC<Props> = () => {
   const handleWindowSizeChange = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -14,7 +17,7 @@ const Main = _props => {
     handleWindowSizeChange();
     window.addEventListener('resize', handleWindowSizeChange);
     return () => window.removeEventListener('resize', handleWindowSizeChange);
-  });
+  }, []);
 
   return (
     <>

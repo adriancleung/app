@@ -8,15 +8,20 @@ import {
   Logout,
   Notes,
 } from 'grommet-icons';
+import { AdminMenuOption } from '../../types/admin';
 
-const AdminAccordian = ({ option }) => {
+type Props = {
+  option: (menuOption: AdminMenuOption) => void;
+};
+
+const AdminAccordian: React.FC<Props> = ({ option }) => {
   return (
     <Box fill={'horizontal'}>
       <Accordion
         animate={true}
         round={{ corner: 'bottom', size: 'medium' }}
         style={{ zIndex: 999, position: 'fixed', width: '100%' }}>
-        <AccordionPanel label={'Admin'} background={'#0984e3'}>
+        <AccordionPanel label={'Admin'}>
           <Box
             pad={{ horizontal: 'medium' }}
             background={'#0984e3'}
@@ -43,7 +48,7 @@ const AdminAccordian = ({ option }) => {
               icon={<Article />}
               label={'About'}
               onClick={e => {
-                option('About');
+                option(AdminMenuOption.ABOUT);
               }}
             />
           </Box>
@@ -57,7 +62,7 @@ const AdminAccordian = ({ option }) => {
               icon={<MailOption />}
               label={'Mail'}
               onClick={e => {
-                option('Mail');
+                option(AdminMenuOption.MAIL);
               }}
             />
           </Box>
@@ -71,7 +76,7 @@ const AdminAccordian = ({ option }) => {
               icon={<Notes />}
               label={'Resume'}
               onClick={e => {
-                option('Resume');
+                option(AdminMenuOption.RESUME);
               }}
             />
           </Box>
@@ -85,7 +90,7 @@ const AdminAccordian = ({ option }) => {
               icon={<SettingsOption />}
               label={'Settings'}
               onClick={e => {
-                option('Settings');
+                option(AdminMenuOption.SETTINGS);
               }}
             />
           </Box>

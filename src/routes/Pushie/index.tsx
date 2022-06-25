@@ -5,11 +5,13 @@ import Loading from '../../components/common/Loading';
 const Pushie = lazy(() => import('./Pushie'));
 const Privacy = lazy(() => import('./Privacy'));
 
-const PushieRoute = _props => {
+type Props = {};
+
+const PushieRoute: React.FC<Props> = () => {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route exact path={'/'} element={<Pushie />} />
+        <Route path={'/'} element={<Pushie />} />
         <Route path={'privacy'} element={<Privacy />} />
       </Routes>
     </Suspense>

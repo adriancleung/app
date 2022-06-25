@@ -11,7 +11,9 @@ const Login = lazy(() => import('./routes/Login'));
 const Logout = lazy(() => import('./routes/Logout'));
 const Pushie = lazy(() => import('./routes/Pushie'));
 
-const App = _props => {
+type Props = {};
+
+const App: React.FC<Props> = () => {
   return (
     <Grommet theme={APP_THEME}>
       <Router>
@@ -21,7 +23,7 @@ const App = _props => {
             <Route path={'/login'} element={<Login />} />
             <Route path={'/logout'} element={<Logout />} />
             <Route path={'/pushie/*'} element={<Pushie />} />
-            <Route exact path={'/'} element={<Main />} />
+            <Route path={'/'} element={<Main />} />
           </Routes>
         </Suspense>
       </Router>
