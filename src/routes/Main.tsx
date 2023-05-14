@@ -3,7 +3,8 @@ import { Box } from 'grommet';
 import Intro from '../components/Main/Intro';
 import Projects from '../components/Main/Projects';
 import Resume from '../components/Main/Resume';
-import Sponsor from '../components/Main/Sponsor';
+import Chat from '../components/Main/Chat';
+// import Sponsor from '../components/Main/Sponsor';
 
 type Props = {};
 
@@ -47,6 +48,7 @@ const Main: React.FC<Props> = () => {
         width={'100vw'}>
         <Resume />
       </Box>
+      <Chat />
     </>
   );
 };

@@ -23,6 +23,11 @@ const api = {
       return (await apiInstance.post('/about', { content })).data;
     },
   },
+  chat: {
+    response: async (content: string): Promise<string> => {
+      return (await apiInstance.post('/chat', { content })).data;
+    },
+  },
   mail: {
     get: async (): Promise<MailResponse> => {
       return (await apiInstance.get('/mails')).data;

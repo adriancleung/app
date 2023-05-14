@@ -1,0 +1,46 @@
+.rcw-conversation-container {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.rcw-conversation-container > .rcw-header {
+  background-color: #d8d8d8;
+}
+
+.rcw-conversation-container > .rcw-header > .rcw-title {
+  color: black;
+}
+
+.rcw-conversation-container > .rcw-header > .rcw-close-button {
+  background-color: transparent;
+}
+
+.rcw-conversation-container > .rcw-header > .rcw-close-button > .rcw-close {
+  filter: invert(100%);
+}
+
+.rcw-message > .rcw-client > .rcw-message-text {
+  background-color: #1982fc;
+}
+
+.rcw-message > .rcw-response > .rcw-message-text {
+  background-color: #d8d8d8;
+}
+
+.rcw-launcher {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: black;
+}
+
+.rcw-conversation-container > .rcw-sender > .rcw-picker-btn {
+  display: none;
+}
+
+.rcw-conversation-container > .rcw-sender > .rcw-new-message {
+  flex: 5;
+}
+
+.rcw-conversation-container > .rcw-sender > .rcw-send {
+  flex: 1;
+  justify-content: center;
+  align-self: center;
+}
