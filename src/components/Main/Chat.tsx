@@ -16,7 +16,7 @@ const Chat: React.FC<Props> = () => {
     <Widget
       handleNewUserMessage={handleNewUserMessage}
       title={'AI Portfolio 🤖'}
-      subtitle={''}
+      subtitle={'Ask anything about Adrian!'}
     />
   );
 };
