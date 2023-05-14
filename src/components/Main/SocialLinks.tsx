@@ -5,7 +5,9 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import styles from '../../styles/SocialLinks.module.css';
 
-const SocialLinks = _props => {
+type Props = {};
+
+const SocialLinks: React.FC<Props> = () => {
   return (
     <Box direction={'row'} gap={'medium'}>
       <Button href={'https://github.com/adriancleung'}>

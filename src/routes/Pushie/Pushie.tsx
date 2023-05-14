@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box, Button, Image } from 'grommet';
 
-const Pushie = _props => {
+type Props = {};
+
+const Pushie: React.FC<Props> = () => {
   return (
     <Box
       width={'100vw'}

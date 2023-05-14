@@ -4,7 +4,9 @@ import { Close } from 'grommet-icons';
 import AboutContent from './About';
 import ContactContent from './Contact';
 
-const ModalLinks = _props => {
+type Props = {};
+
+const ModalLinks: React.FC<Props> = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [showContact, setShowContact] = useState(false);
   return (

@@ -5,7 +5,9 @@ import { login, checkAuth } from '../services/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { VALID_TOKEN } from '../constants';
 
-const Login = _props => {
+type Props = {};
+
+const Login: React.FC<Props> = () => {
   const navigate = useNavigate();
   const [redirect, setRedirect] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
@@ -27,7 +29,7 @@ const Login = _props => {
 
   useEffect(() => {
     const validate = async () => {
-      if (await checkAuth() === VALID_TOKEN) {
+      if ((await checkAuth()) === VALID_TOKEN) {
         setRedirect(true);
       }
     };
