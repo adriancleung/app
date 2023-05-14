@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
-import { getAboutContent } from '../../services/api';
-import { SUCCESS_CODE } from '../../constants';
+import api from '../../services/api';
 import parse from 'html-react-parser';
 
-const About = _props => {
+type Props = {};
+
+const About: React.FC<Props> = () => {
   const [about, setAbout] = useState('');
   const [aboutLoading, setAboutLoading] = useState(true);
 
-  const loadAbout = () => {
-    getAboutContent()
-      .then(res => (res.status === SUCCESS_CODE ? setAbout(res.data) : null))
-      .catch(err => console.error(err))
-      .finally(() => setAboutLoading(false));
+  const loadAbout = async () => {
+    try {
+      const response = await api.about.get();
+      setAbout(response);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setAboutLoading(false);
+    }
   };
 
   useEffect(() => {

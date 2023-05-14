@@ -11,9 +11,25 @@ import {
 } from 'grommet';
 import { ScaleLoader } from 'react-spinners';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { getRepos } from '../../services/github';
+import github from '../../services/github';
+import { Repo } from '../../types/repo';
 
-const RepoCard = ({ title, body, fullTitle, link, language }) => {
+type RepoProps = {
+  projectsLoading: boolean;
+  data: Repo[];
+};
+
+type RepoCardProps = Repo;
+
+type ProjectProps = {};
+
+const RepoCard: React.FC<RepoCardProps> = ({
+  title,
+  body,
+  fullTitle,
+  link,
+  language,
+}) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -22,7 +38,7 @@ const RepoCard = ({ title, body, fullTitle, link, language }) => {
         flexGrow: 0,
         flexShrink: 0,
         flexBasis: 'auto',
-        transform: hovered ? 'translate(0px, -10px)' : null,
+        transform: hovered ? 'translate(0px, -10px)' : undefined,
       }}
       onMouseOver={() => setHovered(true)}
       onMouseOut={() => setHovered(false)}
@@ -49,76 +65,57 @@ const RepoCard = ({ title, body, fullTitle, link, language }) => {
   );
 };
 
-const Repos = ({ projectsLoading, data }) => {
-  const boxRef = useRef();
+const Repos: React.FC<RepoProps> = ({ projectsLoading, data }) => {
+  const boxRef = useRef<HTMLDivElement>(null);
   const pos = { top: 0, left: 0, x: 0, y: 0 };
 
-  const handleMouseDrag = e => {
-    boxRef.current.style.cursor = 'grabbing';
-    boxRef.current.style.userSelect = 'none';
-    boxRef.current.style['-webkit-user-select'] = 'none';
-    boxRef.current.style['-webkit-touch-callout'] = 'none';
-    boxRef.current.style['-moz-user-select'] = 'none';
-    boxRef.current.style['-ms-user-select'] = 'none';
+  const handleMouseDrag = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    boxRef!.current!.style.cursor = 'grabbing';
+    boxRef!.current!.style.userSelect = 'none';
+    boxRef!.current!.style['-webkit-user-select' as unknown as number] = 'none';
+    boxRef!.current!.style['-webkit-touch-callout' as unknown as number] =
+      'none';
+    boxRef!.current!.style['-moz-user-select' as unknown as number] = 'none';
+    boxRef!.current!.style['-ms-user-select' as unknown as number] = 'none';
 
-    pos.left = boxRef.current.scrollLeft;
-    pos.right = boxRef.current.scrollTop;
+    pos.left = boxRef!.current!.scrollLeft;
     pos.x = e.clientX;
     pos.y = e.clientY;
 
-    const handleMouseUp = e => {
-      boxRef.current.style.cursor = 'grab';
-      boxRef.current.style.removeProperty('user-select');
-      boxRef.current.style.removeProperty('-webkit-user-select');
-      boxRef.current.style.removeProperty('-webkit-touch-callout');
-      boxRef.current.style.removeProperty('-moz-user-select');
-      boxRef.current.style.removeProperty('-ms-user-select');
+    const handleMouseUp = () => {
+      boxRef!.current!.style.cursor = 'grab';
+      boxRef!.current!.style.removeProperty('user-select');
+      boxRef!.current!.style.removeProperty('-webkit-user-select');
+      boxRef!.current!.style.removeProperty('-webkit-touch-callout');
+      boxRef!.current!.style.removeProperty('-moz-user-select');
+      boxRef!.current!.style.removeProperty('-ms-user-select');
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', this);
+      document.removeEventListener('mouseup', handleMouseUp);
     };
 
-    const handleMouseMove = e => {
+    const handleMouseMove = (e: MouseEvent) => {
       const dx = e.clientX - pos.x;
       const dy = e.clientY - pos.y;
 
-      boxRef.current.scrollTop = pos.top - dy;
-      boxRef.current.scrollLeft = pos.left - dx;
+      boxRef!.current!.scrollTop = pos.top - dy;
+      boxRef!.current!.scrollLeft = pos.left - dx;
     };
 
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('mousemove', handleMouseMove);
   };
 
-  const handleScroll = e => {
-    e.preventDefault();
-    if (
-      boxRef.current.scrollLeft >=
-        boxRef.current.scrollWidth - boxRef.current.clientWidth ||
-      boxRef.current.scrollLeft === 0
-    ) {
-      window.scrollTo({
-        top: document.documentElement.scrollTop + e.deltaY,
-        behavior: 'smooth',
-      });
-    }
-
-    boxRef.current.scrollTo({
-      top: 0,
-      left: boxRef.current.scrollLeft + e.deltaY,
-      behaviour: 'smooth',
-    });
-  };
-
   return (
     <Box
       ref={boxRef}
-      animation={!projectsLoading ? { type: 'fadeIn', duration: 2000 } : null}
+      animation={
+        !projectsLoading ? { type: 'fadeIn', duration: 2000 } : undefined
+      }
       width={'100vw'}
       direction={'row'}
       gap={'medium'}
       id={'box'}
       pad={'medium'}
-      onWheel={e => handleScroll(e)}
       onMouseDown={e => handleMouseDrag(e)}
       style={{ cursor: 'grab', userSelect: 'none' }}
       overflow={{ horizontal: 'scroll', vertical: 'hidden' }}
@@ -139,30 +136,29 @@ const Repos = ({ projectsLoading, data }) => {
   );
 };
 
-const Projects = _props => {
+const Projects: React.FC<ProjectProps> = () => {
   const [projectsLoading, setProjectsLoading] = useState(true);
-  const [repos, setRepos] = useState([]);
+  const [repos, setRepos] = useState<Repo[]>([]);
 
-  const loadRepos = () => {
-    getRepos()
-      .then(res => {
-        const data = [];
-        res.data.forEach(value => {
-          data.push({
-            loading: projectsLoading,
-            title: value.name,
-            body: value.description,
-            fullTitle: value.full_name,
-            link: value.html_url,
-            language: value.language,
-          });
-        });
-        setRepos(data);
-        setProjectsLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  const loadRepos = async () => {
+    try {
+      const response = await github.repos.get();
+      setRepos(
+        response.map(repo => {
+          return {
+            title: repo.name,
+            body: repo.description,
+            fullTitle: repo.full_name,
+            link: repo.html_url,
+            language: repo.language,
+          };
+        })
+      );
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setProjectsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -180,7 +176,9 @@ const Projects = _props => {
           width={10}
           radius={20}
         />
-        {!projectsLoading && <Repos loading={projectsLoading} data={repos} />}
+        {!projectsLoading && (
+          <Repos projectsLoading={projectsLoading} data={repos} />
+        )}
       </Box>
     </Box>
   );

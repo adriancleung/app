@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
 import { Box, Form, FormField, Text, Button, TextArea, Anchor } from 'grommet';
-import { sendMessage } from '../../services/api';
-import { emailRegExp, SUCCESS_CODE } from '../../constants';
+import api from '../../services/api';
+import { emailRegExp } from '../../constants';
 
-const Contact = props => {
+type Props = {
+  showContact: (show: boolean) => void;
+};
+
+const Contact: React.FC<Props> = ({ showContact }) => {
   const [contactValue, setContactValue] = useState({
     name: '',
     email: '',
     message: '',
   });
 
-  const handleSubmit = () => {
-    sendMessage(
-      String(contactValue.name).split(' ')[0],
-      String(contactValue.name).split(' ')[1] === undefined
-        ? ''
-        : String(contactValue.name).split(' ')[1],
-      contactValue.email,
-      contactValue.message
-    )
-      .then(res => {
-        if (res.status === SUCCESS_CODE) {
-          alert('Thank you for your message. I will get back to you shortly!');
-          setContactValue({ name: '', email: '', message: '' });
-          props.showContact(false);
-        } else {
-          alert('Message was unable to send. Please try again');
-        }
-      })
-      .catch(_err => alert('Message was unable to send. Please try again'));
+  const handleSubmit = async () => {
+    const name = String(contactValue.name).split(' ');
+    try {
+      const response = await api.mail.send(
+        name[0],
+        name[1] === undefined ? '' : name[1],
+        contactValue.email,
+        contactValue.message
+      );
+      if (response === 'OK') {
+        alert('Thank you for your message. I will get back to you shortly!');
+        setContactValue({ name: '', email: '', message: '' });
+        showContact(false);
+      } else {
+        alert('Message was unable to send. Please try again');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Message was unable to send. Please try again');
+    }
   };
 
   return (

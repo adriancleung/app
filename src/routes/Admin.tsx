@@ -9,21 +9,24 @@ import { checkAuth } from '../services/auth';
 import { INVALID_TOKEN } from '../constants';
 import Resume from '../components/Admin/Resume';
 import About from '../components/Admin/About';
+import { AdminMenuOption } from '../types/admin';
 
-const Admin = _props => {
+type Props = {};
+
+const Admin: React.FC<Props> = () => {
   const [redirect, setRedirect] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: 1224 });
-  const [option, setOption] = useState('About');
+  const [option, setOption] = useState<AdminMenuOption>(AdminMenuOption.ABOUT);
 
   const Content = () => {
     switch (option) {
-      case 'About':
+      case AdminMenuOption.ABOUT:
         return <About />;
-      case 'Mail':
+      case AdminMenuOption.MAIL:
         return <Mail />;
-      case 'Resume':
+      case AdminMenuOption.RESUME:
         return <Resume />;
-      case 'Settings':
+      case AdminMenuOption.SETTINGS:
         return <></>;
       default:
         return <></>;
@@ -48,16 +51,16 @@ const Admin = _props => {
       gap={isMobile ? 'medium' : 'small'}
       direction={isMobile ? 'column' : 'row'}>
       {isMobile ? (
-        <AdminAccordian option={value => setOption(value)} />
+        <AdminAccordian option={(value: AdminMenuOption) => setOption(value)} />
       ) : (
-        <AdminSidebar option={value => setOption(value)} />
+        <AdminSidebar option={(value: AdminMenuOption) => setOption(value)} />
       )}
 
       <Box
         width={'100%'}
         height={'100%'}
         pad={'small'}
-        margin={{ top: isMobile ? '50px' : null }}>
+        margin={{ top: isMobile ? '50px' : undefined }}>
         <Heading margin={'small'}>{option}</Heading>
         <Content />
       </Box>

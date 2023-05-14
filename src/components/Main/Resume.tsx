@@ -4,7 +4,9 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { API_URL } from '../../constants';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-const Resume = _props => {
+type Props = {};
+
+const Resume: React.FC<Props> = () => {
   return (
     <Box height={'100%'}>
       <Heading>Resume</Heading>

@@ -1,4 +1,6 @@
-export const APP_THEME = {
+import { ThemeType } from 'grommet';
+
+export const APP_THEME: ThemeType = {
   global: {
     font: {
       family: 'Roboto',
@@ -11,11 +13,11 @@ export const APP_THEME = {
       },
     },
   },
-  accordian: {
+  accordion: {
     hover: {
       heading: {
         color: { dark: 'white', light: 'dark-3' },
-        level: 2,
+        // level: 2,
       },
     },
     icons: {
@@ -25,12 +27,12 @@ export const APP_THEME = {
       color: 'transparent',
     },
     panel: {
-      hover: {
-        heading: {
-          color: { dark: 'white', light: 'dark-3' },
-          level: 2,
-        },
-      },
+      // hover: {
+      //   heading: {
+      //     color: { dark: 'white', light: 'dark-3' },
+      //     level: 2,
+      //   },
+      // },
       border: {
         color: 'transparent',
       },
@@ -38,7 +40,7 @@ export const APP_THEME = {
   },
   anchor: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: 700,
   },
   button: {
     default: {

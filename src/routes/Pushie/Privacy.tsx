@@ -2,7 +2,9 @@ import React from 'react';
 import { Box, Text, Image } from 'grommet';
 import Logo from '../../assets/pushie.svg';
 
-const PushiePrivacy = _props => {
+type Props = {};
+
+const PushiePrivacy: React.FC<Props> = () => {
   return (
     <>
       <Box width={'100vw'} height={'100vh'} overflow={'scroll'}>

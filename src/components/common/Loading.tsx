@@ -2,7 +2,9 @@ import React from 'react';
 import { Box } from 'grommet';
 import { PropagateLoader } from 'react-spinners';
 
-const Loading = _props => {
+type Props = {};
+
+const Loading: React.FC<Props> = () => {
   return (
     <Box
       width={'100vw'}

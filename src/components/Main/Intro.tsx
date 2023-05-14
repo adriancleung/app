@@ -3,7 +3,9 @@ import { Box, Heading } from 'grommet';
 import SocialLinks from './SocialLinks';
 import ModalLinks from './ModalLinks';
 
-const Intro = _props => {
+type Props = {};
+
+const Intro: React.FC<Props> = () => {
   return (
     <Box
       margin={'large'}
