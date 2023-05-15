@@ -25,7 +25,7 @@ const api = {
   },
   chat: {
     response: async (content: string): Promise<string> => {
-      return (await apiInstance.post('/chat', { content })).data;
+      return (await apiInstance.post('/chat', { content })).data.message;
     },
   },
   mail: {
